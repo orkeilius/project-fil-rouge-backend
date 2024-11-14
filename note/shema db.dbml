@@ -1,0 +1,33 @@
+Table users {
+  id integer [primary key,increment]
+  role role [not null]
+  username varchar [unique,not null]
+  password varchar [not null]
+  created_at timestamp [not null]
+}
+Enum role {
+  admin
+  user
+}
+
+Table auction {
+  id integer [primary key,increment]
+  id_seller integer [not null]
+  name varchar [not null]
+  body text
+  image_id varchar 
+  starting_price int
+  created_at timestamp [not null]
+  end_at timestamp [not null]
+}
+Ref : auction.id_seller < users.id
+
+Table offer{
+  id integer [primary key,increment]
+  id_auction int [not null]
+  id_buyer int [not null]
+  price int [not null]
+  created_at timestamp
+}
+Ref : offer.id_buyer < users.id
+Ref : offer.id_auction < auction.id
