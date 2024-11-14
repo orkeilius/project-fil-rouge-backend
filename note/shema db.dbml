@@ -2,6 +2,7 @@ Table users {
   id integer [primary key,increment]
   role role [not null]
   username varchar [unique,not null]
+  email varchar [unique,not null]
   password varchar [not null]
   created_at timestamp [not null]
 }
