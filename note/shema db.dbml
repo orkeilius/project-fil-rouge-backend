@@ -24,11 +24,13 @@ Table auction {
 Ref : auction.id_seller < users.id
 
 Table offer{
-  id integer [primary key,increment]
   id_auction int [not null]
   id_buyer int [not null]
   price int [not null]
   created_at timestamp
+  Indexes {
+    (id_auction, id_buyer) [unique]
+  }
 }
 Ref : offer.id_buyer < users.id
 Ref : offer.id_auction < auction.id
