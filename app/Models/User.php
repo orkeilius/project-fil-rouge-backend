@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'role'
     ];
+    protected $appends = ['avatar_url'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -57,5 +58,10 @@ class User extends Authenticatable
     public function Offers()
     {
         return $this->hasMany(Offer::class, 'author_id');
+    }
+    public function getAvatarUrlAttribute()
+    {
+        $hash = hash( 'sha256', strtolower( trim( $this->email ) ) );
+        return sprintf( 'https://www.gravatar.com/avatar/%s?d=identicon', $hash );
     }
 }
