@@ -22,11 +22,11 @@ class Offer extends Model
             'price' => 'float',
         ];
     }
-    public function Auction(): HasMany
+    public function Auction()
     {
         return $this->belongsTo(Auction::class);
     }
-    public function Author(): HasMany
+    public function Author()
     {
         return $this->belongsTo(User::class);
     }

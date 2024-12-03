@@ -26,7 +26,7 @@ class Auction extends Model
         ];
     }
 
-    public function Author(): HasMany
+    public function Author()
     {
         return $this->belongsTo(User::class);
     }
