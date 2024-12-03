@@ -48,6 +48,7 @@ class UserFactory extends Factory
         User::factory()
             ->count(100)
             ->hasAuctions(fake()->numberBetween(0,10))
+            ->hasOffers(fake()->numberBetween(0,10))
             ->create();
     }
 }

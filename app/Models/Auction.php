@@ -30,4 +30,8 @@ class Auction extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function Offers()
+    {
+        return $this->hasMany(Offer::class, 'auction_id');
+    }
 }
