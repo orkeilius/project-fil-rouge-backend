@@ -30,7 +30,8 @@ class AuctionApiController extends Controller
      */
     public function show($id)
     {
-        $auction = User::findOrFail($id)->with('author')->get();
+        $auction = Auction::findOrFail($id);
+        $auction->load('author');
         return response()->json($auction);
     }
 
