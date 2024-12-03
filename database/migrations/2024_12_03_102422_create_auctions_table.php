@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->float('starting_price');
             $table->timestamp('end_at');
-            
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
         });
     }
 

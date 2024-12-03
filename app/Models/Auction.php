@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,5 +24,10 @@ class Auction extends Model
             'end_at' => 'datetime',
             'starting_price' => 'float',
         ];
+    }
+
+    public function Author(): HasMany
+    {
+        return $this->belongsTo(User::class);
     }
 }
