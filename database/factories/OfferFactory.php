@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Auction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class OfferFactory extends Factory
     {
         return [
             'price' => fake()->randomFloat(2, 0, 10000),
-            'auction_id' => fake()->numberBetween(1,200),
+            'auction_id' => fake()->numberBetween(1,Auction::count()),
         ];
     }
 }

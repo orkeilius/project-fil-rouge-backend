@@ -11,6 +11,7 @@ class Auction extends Model
     /** @use HasFactory<\Database\Factories\AuctionFactory> */
     use HasFactory;
     protected $fillable = ['name', 'description', 'starting_price','end_at', 'created_at'];
+    protected $appends = ['highest_offer'];
 
         /**
      * Get the attributes that should be cast.
@@ -33,5 +34,10 @@ class Auction extends Model
     public function Offers()
     {
         return $this->hasMany(Offer::class, 'auction_id');
+    }
+
+    public function getHighestOfferAttribute()
+    {
+        return $this->Offers()->max('price');
     }
 }
