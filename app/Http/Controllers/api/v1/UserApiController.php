@@ -21,6 +21,19 @@ class UserApiController extends Controller
         $user = User::findOrFail($id); // Trouve l'utilisateur par son ID
         return response()->json($user); // Retourne l'utilisateur en JSON
     }
+    public function getAuctions($id)
+    {
+        $user = User::findOrFail($id);
+        $auctions = $user->Auctions()->get();
+        return response()->json($auctions);
+    }
+
+    public function getOffers($id)
+    {
+        $user = User::findOrFail($id);
+        $offers = $user->Offers()->with('author')->get();
+        return response()->json($offers);
+    }
 
     // Formulaire pour créer un utilisateur
     public function create()

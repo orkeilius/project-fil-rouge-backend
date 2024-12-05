@@ -10,4 +10,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::resource('users', UserApiController::class);
+Route::Get('users/{id}/auction', [UserApiController::class, 'getAuctions']);
+Route::Get('users/{id}/offer', [UserApiController::class, 'getOffers']);
+
 Route::resource('auctions', AuctionApiController::class);
