@@ -27,6 +27,33 @@ class AuctionController extends Controller
         return view('auctions.create');
     }
 
+    public function edit($id)
+    {
+        // Récupérer l'enchère à partir de son ID
+        $auction = Auction::findOrFail($id);
+
+        // Retourner la vue pour éditer l'enchère
+        return view('auctions.edit', compact('auction'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validation des données
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'starting_price' => 'required|numeric|min:0',
+            'end_at' => 'required|date|after:today',
+        ]);
+    
+        // Récupérer l'enchère et la mettre à jour
+        $auction = Auction::findOrFail($id);
+        $auction->update($validated);
+    
+        // Rediriger avec un message de succès
+        return redirect()->route('auctions.index')->with('success', 'Vente mise à jour avec succès.');
+    }
+    
     // Sauvegarder une vente
     public function store(Request $request)
     {

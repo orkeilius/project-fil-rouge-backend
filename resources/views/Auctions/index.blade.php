@@ -31,6 +31,7 @@
                     <td>{{ $auction->end_at }}</td>
                     <td>
                         <a href="{{ route('auctions.show', $auction->id) }}">Voir</a>
+                        <a href="{{ route('auctions.edit', $auction->id) }}">Modifier</a>
                     </td>
                 </tr>
             @endforeach
