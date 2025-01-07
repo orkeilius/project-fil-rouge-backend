@@ -15,8 +15,8 @@ Table auction {
   id integer [primary key,increment]
   id_seller integer [not null]
   name varchar [not null]
-  body text
-  image_id varchar 
+  description text
+  image_id varchar
   starting_price int
   created_at timestamp [not null]
   end_at timestamp [not null]
@@ -34,3 +34,14 @@ Table offer{
 }
 Ref : offer.id_buyer < users.id
 Ref : offer.id_auction < auction.id
+
+Table image {
+  id_image integer [primary key,increment]
+  id_auction integer [not null]
+  position integer [not null]
+  filename varchar(100) [unique]
+  indexes {
+    (id_auction,position) [unique]
+  }
+}
+Ref : image.id_auction < auction.id
