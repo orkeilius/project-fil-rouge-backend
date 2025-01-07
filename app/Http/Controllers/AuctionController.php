@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 class AuctionController extends Controller
 {
     // Afficher toutes les ventes
-    public function index()
+    public function index(Request $request)
     {
-        $auctions = Auction::all();
+        $perPage = $request->input('per_page', 10);
+        $auctions = Auction::paginate($perPage);
+        
         return view('auctions.index', compact('auctions'));
     }
 

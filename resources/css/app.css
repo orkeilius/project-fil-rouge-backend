@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Test CSS de base */
+body {
+    background-color: #f4f4f4; /* Change la couleur d'arrière-plan */
+}
+
+h1 {
+    color: red; /* Change la couleur du titre principal */
+    text-align: center; /* Centre le texte */
+}
+
