@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auction;
 
 use App\Models\Auction;
 use App\Models\User;

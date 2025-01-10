@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Requests\AuctionDestroyRequest;
-use App\Http\Requests\AuctionStoreRequest;
-use App\Http\Requests\AuctionUpdateRequest;
-use App\Models\Auction;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auction\AuctionDestroyRequest;
+use App\Http\Requests\Auction\AuctionStoreRequest;
+use App\Http\Requests\Auction\AuctionUpdateRequest;
+use App\Models\Auction;
 
 class AuctionApiController extends Controller
 {
