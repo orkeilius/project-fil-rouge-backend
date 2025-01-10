@@ -87,22 +87,6 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"",
-									"// Test 2: Verify the response body is an array",
-									"pm.test(\"Response body is an array\", function () {",
-									"    pm.expect(pm.response.json()).to.be.an('array');",
-									"});",
-									"",
-									"// Test 3: Verify the response body contains specific fields for each user",
-									"pm.test(\"Response body contains specific fields for each user\", function () {",
-									"    pm.response.json().forEach(function(user) {",
-									"        pm.expect(user).to.have.property('id');",
-									"        pm.expect(user).to.have.property('name');",
-									"        pm.expect(user).to.have.property('updated_at');",
-									"        pm.expect(user).to.have.property('role');",
-									"        pm.expect(user).to.have.property('avatar_url');",
-									"    });",
-									"});",
 									""
 								],
 								"type": "text/javascript",
@@ -203,6 +187,40 @@
 			"name": "Auction",
 			"item": [
 				{
+					"name": "index auction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test 1: Verify the response status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/auctions",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"auctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "store auction",
 					"request": {
 						"method": "POST",
@@ -217,12 +235,17 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "email",
-									"value": "",
+									"key": "name",
+									"value": "test",
 									"type": "text"
 								},
 								{
-									"key": "password",
+									"key": "description",
+									"value": "holla",
+									"type": "text"
+								},
+								{
+									"key": "rzer",
 									"value": "",
 									"type": "text"
 								}
@@ -235,6 +258,115 @@
 							],
 							"path": [
 								"auctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy auction",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/auctions/181",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"auctions",
+								"181"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update auction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/auctions/182?name=eeeee",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"auctions",
+								"182"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "eeeee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show auction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.environment.set(\"crsf\", pm.response.cookies.get(\"XSRF-TOKEN\"));",
+									"console.log(pm.response.cookies.get(\"XSRF-TOKEN\"))",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - id, name, updated_at, role, and avatar_url\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('id');",
+									"    pm.expect(responseData).to.have.property('name');",
+									"    pm.expect(responseData).to.have.property('updated_at');",
+									"    pm.expect(responseData).to.have.property('role');",
+									"    pm.expect(responseData).to.have.property('avatar_url');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Id is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.id).to.be.a('number');",
+									"    pm.expect(responseData.id).to.be.at.least(0, \"Id should be a non-negative integer\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}api/auctions/1",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"auctions",
+								"1"
 							]
 						}
 					},
