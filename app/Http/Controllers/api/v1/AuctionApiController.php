@@ -25,14 +25,13 @@ class AuctionApiController extends Controller
     public function store(AuctionStoreRequest $request)
     {
         $validated = $request->validated();
-
-        $auction = new Auction();
-        $auction->name = $validated->name;
-        $auction->description = $validated->description;
-        $auction->starting_price = $validated->has('starting_price') ? $validated->starting_price : 0;
-        $auction->end_at = $validated->has('end_at') ? $validated->end_at : now()->addDays(7);
-        $auction->author_id = auth()->id();
-        $auction->save();
+        $auction = Auction::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'starting_price' => $validated['starting_price'] ?? 0,
+            'end_at' => $validated['end_at'] ?? now()->addDays(7),
+            'author_id' => auth()->id(),
+        ]);
 
         return response()->json($auction);
 

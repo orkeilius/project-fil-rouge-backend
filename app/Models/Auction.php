@@ -11,7 +11,7 @@ class Auction extends Model
 {
     /** @use HasFactory<\Database\Factories\AuctionFactory> */
     use HasFactory;
-    protected $fillable = ['name', 'description', 'starting_price','end_at', 'created_at'];
+    protected $fillable = ['name', 'description', 'starting_price','end_at', 'created_at','author_id'];
     protected $appends = ['highest_offer'];
 
         /**

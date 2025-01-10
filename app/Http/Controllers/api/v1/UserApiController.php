@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Http\Requests\User\UserDestroyRequest;
+use App\Http\Requests\User\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -42,13 +44,9 @@ class UserApiController extends Controller
     }
 
     // Sauvegarder un utilisateur
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
             'name' => $validated['name'],
@@ -57,5 +55,12 @@ class UserApiController extends Controller
         ]);
 
         return response()->json($user);
+    }
+
+    public function destroy($id, UserDestroyRequest $request)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['message' => 'User deleted']);
     }
 }
