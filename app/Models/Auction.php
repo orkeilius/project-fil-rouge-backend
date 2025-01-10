@@ -42,4 +42,8 @@ class Auction extends Model
         $max = $this->Offers()->max('price');
         return isNull($max) ? 0 : $max;
     }
+    public function isEnded():bool
+    {
+        return $this->end_at < now();
+    }
 }

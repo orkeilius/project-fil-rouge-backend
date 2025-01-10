@@ -12,7 +12,9 @@ class Offer extends Model
 
     protected $fillable = [
         'price',
-        'created_at'
+        'created_at',
+        'author_id',
+        'auction_id'
     ];
 
     protected function casts(): array

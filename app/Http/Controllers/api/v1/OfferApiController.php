@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Offer\StoreOfferRequest;
 use App\Http\Requests\Offer\UpdateOfferRequest;
 use App\Models\Offer;
+use Illuminate\Support\Facades\Auth;
 
 class OfferApiController extends Controller
 {
@@ -34,7 +35,14 @@ class OfferApiController extends Controller
      */
     public function store(StoreOfferRequest $request)
     {
+        $validated = $request->validated();
+        $offer = Offer::create([
+            'price' => $validated['price'],
+            'auction_id' => $validated['auction_id'],
+            'author_id' => Auth::id(),
+        ]);
 
+        return response()->json($offer);
     }
 
     /**
