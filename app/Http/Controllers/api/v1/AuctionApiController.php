@@ -16,7 +16,7 @@ class AuctionApiController extends Controller
      */
     public function index()
     {
-        $auctions = Auction::with('author')->get();
+        $auctions = Auction::with('author')->paginate(20);
         return response()->json($auctions);
     }
 

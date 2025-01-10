@@ -11,7 +11,7 @@ class UserApiController extends Controller
     // Afficher tous les utilisateurs
     public function index()
     {
-        $users = User::all(); // Récupère tous les utilisateurs
+        $users = User::paginate(20); // Récupère tous les utilisateurs
         return response()->json($users);
     }
 
@@ -24,14 +24,14 @@ class UserApiController extends Controller
     public function getAuctions($id)
     {
         $user = User::findOrFail($id);
-        $auctions = $user->Auctions()->get();
+        $auctions = $user->Auctions()->paginate(20);
         return response()->json($auctions);
     }
 
     public function getOffers($id)
     {
         $user = User::findOrFail($id);
-        $offers = $user->Offers()->with('author')->get();
+        $offers = $user->Offers()->with('author')->paginate(20);;
         return response()->json($offers);
     }
 
