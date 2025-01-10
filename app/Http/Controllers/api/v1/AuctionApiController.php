@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Requests\AuctionDestroyRequest;
+use App\Http\Requests\AuctionStoreRequest;
 use App\Models\Auction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,8 +22,19 @@ class AuctionApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AuctionStoreRequest $request)
     {
+        $request->validated();
+
+        $auction = new Auction();
+        $auction->name = $request->name;
+        $auction->description = $request->description;
+        $auction->starting_price = $request->has('starting_price') ? $request->starting_price : 0;
+        $auction->end_at = $request->has('end_at') ? $request->end_at : now()->addDays(7);
+        $auction->author_id = auth()->id();
+        $auction->save();
+
+        return response()->json($auction);
 
     }
 

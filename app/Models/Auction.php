@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use function PHPUnit\Framework\isNull;
 
 class Auction extends Model
 {
@@ -36,8 +37,9 @@ class Auction extends Model
         return $this->hasMany(Offer::class, 'auction_id');
     }
 
-    public function getHighestOfferAttribute()
+    public function getHighestOfferAttribute():float
     {
-        return $this->Offers()->max('price');
+        $max = $this->Offers()->max('price');
+        return isNull($max) ? 0 : $max;
     }
 }
