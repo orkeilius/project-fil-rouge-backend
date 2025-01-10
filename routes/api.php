@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuctionApiController;
+use App\Http\Controllers\api\v1\OfferApiController;
 use App\Http\Controllers\api\v1\UserApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,14 @@ Route::Put('auctions/{id}', [AuctionApiController::class, 'update'])
     ->middleware('auth:api');
 Route::Delete('auctions/{id}', [AuctionApiController::class, 'destroy'])
     ->middleware('auth:api');
+
+//Offer
+Route::Get('offers', [OfferApiController::class, 'index']);
+Route::Get('offers/{id}', [OfferApiController::class, 'show']);
+//Route::Post('auctions', [AuctionApiController::class, 'store'])
+//    ->middleware('auth:api');
+//Route::Put('auctions/{id}', [AuctionApiController::class, 'update'])
+//    ->middleware('auth:api');
+//Route::Delete('auctions/{id}', [AuctionApiController::class, 'destroy'])
+//    ->middleware('auth:api');
 
