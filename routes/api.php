@@ -9,8 +9,25 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::resource('users', UserApiController::class);
+//User
+Route::Get('users', [UserApiController::class, 'index']);
+Route::Get('users/{id}', [UserApiController::class, 'show']);
+Route::Post('users', [UserApiController::class, 'store']);
+Route::Put('users/{id}', [UserApiController::class, 'update'])
+    ->middleware('auth:api');
+Route::Delete('users/{id}', [UserApiController::class, 'destroy'])
+    ->middleware('auth:api');
+
 Route::Get('users/{id}/auction', [UserApiController::class, 'getAuctions']);
 Route::Get('users/{id}/offer', [UserApiController::class, 'getOffers']);
 
-Route::resource('auctions', AuctionApiController::class);
+//Auction
+Route::Get('auctions', [AuctionApiController::class, 'index']);
+Route::Get('auctions/{id}', [AuctionApiController::class, 'show']);
+Route::Post('auctions', [AuctionApiController::class, 'store'])
+    ->middleware('auth:api');
+Route::Put('auctions/{id}', [AuctionApiController::class, 'update'])
+    ->middleware('auth:api');
+Route::Delete('auctions/{id}', [AuctionApiController::class, 'destroy'])
+    ->middleware('auth:api');
+

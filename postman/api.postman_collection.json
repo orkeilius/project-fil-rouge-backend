@@ -215,7 +215,18 @@
 						],
 						"body": {
 							"mode": "formdata",
-							"formdata": []
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}api/auctions",
@@ -235,42 +246,21 @@
 			"name": "_OAuth2",
 			"item": [
 				{
-					"name": "OAuth/Tokens",
+					"name": "login",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var template = `",
-									"<style type=\"text/css\">",
-									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
-									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
-									"    .tftable tr {background-color:#ffffff;}",
-									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
-									"    .tftable tr:hover {background-color:#e0ffff;}",
-									"</style>",
+									"// Extracting access_token and refresh_token from the response body",
+									"const responseBody = pm.response.json();",
+									"const accessToken = responseBody.access_token;",
+									"const refreshToken = responseBody.refresh_token;",
 									"",
-									"<table class=\"tftable\" border=\"1\">",
-									"    <tr>",
-									"        <th>Error</th>",
-									"        <th>Error Description</th>",
-									"        <th>Hint</th>",
-									"        <th>Message</th>",
-									"    </tr>",
-									"    <tr>",
-									"        <td>{{response.error}}</td>",
-									"        <td>{{response.error_description}}</td>",
-									"        <td>{{response.hint}}</td>",
-									"        <td>{{response.message}}</td>",
-									"    </tr>",
-									"</table>",
-									"`;",
-									"",
-									"function constructVisualizerPayload() {",
-									"    return {response: pm.response.json()}",
-									"}",
-									"",
-									"pm.visualizer.set(template, constructVisualizerPayload());"
+									"// Setting the environment variables for access_token and refresh_token",
+									"pm.environment.set(\"access_token\", accessToken);",
+									"pm.environment.set(\"refresh_token\", refreshToken);",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -333,13 +323,94 @@
 							],
 							"path": [
 								"token"
-							],
-							"query": [
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Extracting access_token and refresh_token from the response body",
+									"const responseBody = pm.response.json();",
+									"const accessToken = responseBody.access_token;",
+									"const refreshToken = responseBody.refresh_token;",
+									"",
+									"// Setting the environment variables for access_token and refresh_token",
+									"pm.environment.set(\"access_token\", accessToken);",
+									"pm.environment.set(\"refresh_token\", refreshToken);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "email",
-									"value": "bob.test@localhost.com",
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZjMxNDdjZjYwOGFmYmNjMDI1MzE2OTU3ZjQyYTg4MzczNmYzYTUzYjRkODZiNWZlOTlkNzJkNmJhOGJkMmE5MTFhYTMzOTBhMjk2ZDVmMDMiLCJpYXQiOjE3MzE2NjUxMzAuMTkxMjk3LCJuYmYiOjE3MzE2NjUxMzAuMTkxMjk5LCJleHAiOjE3NjMyMDExMzAuMTc5OTk1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.g8NFA2WwoMgRCH6jlGVUzBUGFNqROU3WMr75bTbtfAelrVXEXkYGcv4V0QVWXPAOvaYx-HHdC6hTO57Z06iMP2dTv07CBt-9_9vhPgw0zscgHt4e-lb26_4vLrjPHDdUf8ylJp9E5Z-eSQDECAHsiU_iOAN5Rb4OFuEiT60LsC2a0fXNu959j1yc_63VW_QgOdtMyMQMr7_D4gj6ZXLYfmUnU5N1Y0vs-AWFdgSytWEssKOF9uEgU_rISyKVtpwqtwSF4cZzvovVZxaEKA7DT9MfRr6aoBeeIxiZQI-W_G-_nByZ8Fum9heODkTOwg1KHFHQDe6K3O_BbU3kKG-TRpX0ncf17DQR7wEYEG9Xh3RH8hq-mjbAcMotu3hsvGoi87snA2XC1YGjp9VvNT2sX4JDhYngnktzHL5JbtH7VnBGc4nOWKxd2nYfUHjxllpdqTuv2KhaNXefDm1Zca7UyI6uBhEMdIlRxUih7owD0SOyZ9c1YeOujIHHSBsvST7w5G0j7UtBFcpWhw9P7iY0t2yPjJlRNy2tuIzLRafWFAikUK1P0U3DD2XN2l9Ecj9d7Y_YDAe66M4FwPkZPwY4DQAETh6jAcNq7KC-6IvsBZXqgZFculGxtgQZ7e2l_EQvu8eCXg08vTHCoP3vGVdQ1YkePg5zDWVq2MFimPJwM9Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh_token",
+									"value": "{{refresh_token}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
 									"disabled": true
 								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}oauth/token",
+							"host": [
+								"{{base_url}}oauth"
+							],
+							"path": [
+								"token"
 							]
 						}
 					},
@@ -353,7 +424,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{",
+				"value": "{{access_token}}",
 				"type": "string"
 			}
 		]
