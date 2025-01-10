@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Http\Requests\AuctionDestroyRequest;
 use App\Models\Auction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,7 @@ class AuctionApiController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -46,8 +47,11 @@ class AuctionApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Auction $auction)
+    public function destroy(Auction $auction, AuctionDestroyRequest $request)
     {
-        //
+        $request->validated();
+
+        $auction->delete();
+        return response()->json(['message' => 'Auction deleted']);
     }
 }
