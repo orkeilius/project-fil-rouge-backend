@@ -48,9 +48,17 @@ class OfferApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOfferRequest $request, Offer $offer)
+    public function update($id,UpdateOfferRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $offer = Offer::findOrFail($id);
+        var_dump($offer->auction->highest_offer);
+        if($offer->auction->highest_offer >= intval($validated['price'])){
+            return response()->json(['message' => 'Starting price must be higher than current highest offer']);
+        }
+        $offer->update($validated);
+        $offer->save();
+        return response()->json($offer);
     }
 
     /**

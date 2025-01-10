@@ -92,6 +92,13 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -180,6 +187,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "destroy user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/users/102",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"users",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show user offer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/users/102/offer",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"users",
+								"102",
+								"offer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show user auction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/users/102/auction",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"users",
+								"102",
+								"auction"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -202,6 +265,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -375,6 +445,179 @@
 			]
 		},
 		{
+			"name": "Offer",
+			"item": [
+				{
+					"name": "store offer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "price",
+									"value": "900000",
+									"type": "text"
+								},
+								{
+									"key": "auction_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}api/offers",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test 1: Verify the response status code is 200",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/offers",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.environment.set(\"crsf\", pm.response.cookies.get(\"XSRF-TOKEN\"));",
+									"console.log(pm.response.cookies.get(\"XSRF-TOKEN\"))",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Id is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.id).to.be.a('number');",
+									"    pm.expect(responseData.id).to.be.at.least(0, \"Id should be a non-negative integer\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}api/offers/1",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"offers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update offer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/offers/901?price=20000",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"offers",
+								"901"
+							],
+							"query": [
+								{
+									"key": "price",
+									"value": "20000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "_OAuth2",
 			"item": [
 				{
@@ -396,6 +639,13 @@
 								],
 								"type": "text/javascript",
 								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [],
+								"type": "text/javascript"
 							}
 						}
 					],

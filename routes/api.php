@@ -37,8 +37,8 @@ Route::Get('offers', [OfferApiController::class, 'index']);
 Route::Get('offers/{id}', [OfferApiController::class, 'show']);
 Route::Post('offers', [OfferApiController::class, 'store'])
     ->middleware('auth:api');
-//Route::Put('auctions/{id}', [AuctionApiController::class, 'update'])
-//    ->middleware('auth:api');
+Route::Put('offers/{id}', [OfferApiController::class, 'update'])
+    ->middleware('auth:api');
 //Route::Delete('auctions/{id}', [AuctionApiController::class, 'destroy'])
 //    ->middleware('auth:api');
 
