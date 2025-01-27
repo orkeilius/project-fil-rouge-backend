@@ -2,13 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Test CSS de base */
 body {
-    background-color: #f4f4f4; /* Change la couleur d'arrière-plan */
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
-    color: red; /* Change la couleur du titre principal */
-    text-align: center; /* Centre le texte */
+    color: #333333;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    margin-top: 20px;
 }
 
+h2 {
+    font-weight: bold;
+}
+
+p {
+    color: #666666;
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 20px;
+}
+
+a {
+    color: #1a0dab;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
