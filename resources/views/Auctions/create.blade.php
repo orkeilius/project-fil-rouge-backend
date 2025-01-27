@@ -13,18 +13,22 @@
     <h1>Créer une nouvelle vente aux enchères</h1>
     <form action="{{ route('auctions.store') }}" method="POST">
         @csrf
-        <label for="name">Nom de la vente</label>
-        <input type="text" name="name" id="name" required>
-
-        <label for="description">Description</label>
-        <textarea name="description" id="description" required></textarea>
-
-        <label for="starting_price">Prix de départ</label>
-        <input type="number" name="starting_price" id="starting_price" required min="0">
-
-        <label for="end_at">Date de fin</label>
-        <input type="datetime-local" name="end_at" id="end_at" required>
-
+        <div class="form-group">
+            <label for="name">Nom de la vente</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="starting_price">Prix de départ</label>
+            <input type="number" name="starting_price" id="starting_price" required min="0">
+        </div>
+        <div class="form-group">
+            <label for="end_at">Date de fin</label>
+            <input type="datetime-local" name="end_at" id="end_at" required>
+        </div>
         <button type="submit">Créer la vente</button>
     </form>
 </body>
