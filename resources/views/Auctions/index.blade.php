@@ -12,7 +12,11 @@
 <body>
     <h1>📋 Liste des Ventes aux Enchères 📋</h1>
     
-    <a href="{{ route('auctions.create') }}">Créer une nouvelle vente</a>
+    <a href="{{ route('auctions.create') }}">
+        <button type="button">➕ Créer une nouvelle vente</button>
+    </a>
+
+    <br><br>
     
     <table>
         <thead>

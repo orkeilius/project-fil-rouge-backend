@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="starting_price">Prix de départ</label>
-            <input type="number" name="starting_price" id="starting_price" required min="0">
+            <input type="number" name="starting_price" id="starting_price" required min="0"> €
         </div>
         <div class="form-group">
             <label for="end_at">Date de fin</label>

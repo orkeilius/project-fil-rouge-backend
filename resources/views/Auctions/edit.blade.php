@@ -25,22 +25,28 @@
         @csrf
         @method('PUT')
 
-        <label for="name">Nom</label>
-        <input type="text" name="name" id="name" value="{{ old('name', $auction->name) }}" required>
-
-        <label for="description">Description</label>
-        <textarea name="description" id="description" required>{{ old('description', $auction->description) }}</textarea>
-
-        <label for="starting_price">Prix de départ</label>
-        <input type="number" name="starting_price" id="starting_price" value="{{ old('starting_price', $auction->starting_price) }}" required>
-
-        <label for="end_at">Date de fin</label>
-        <input type="datetime-local" name="end_at" id="end_at" value="{{ old('end_at', $auction->end_at->format('Y-m-d\TH:i')) }}" required>
-
-        <button type="submit">Mettre à jour</button>
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name" value="{{ old('name', $auction->name) }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" required>{{ old('description', $auction->description) }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="starting_price">Prix de départ</label>
+            <input type="number" name="starting_price" id="starting_price" value="{{ old('starting_price', $auction->starting_price) }}" required> €
+        </div>
+        <div class="form-group">
+            <label for="end_at">Date de fin</label>
+            <input type="datetime-local" name="end_at" id="end_at" value="{{ old('end_at', $auction->end_at->format('Y-m-d\TH:i')) }}" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="update-button">💾 Mettre à jour</button>
+            <a href="{{ url('/auctions') }}">
+                <button type="button">Retour</button>
+            </a>
+        </div>
     </form>
-    <a href="{{ url('/auctions') }}">
-        <button type="button">Retour</button>
-    </a>
 </body>
 </html>

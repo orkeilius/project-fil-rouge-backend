@@ -16,6 +16,8 @@
     <p><strong>Prix de départ :</strong> {{ $auction->starting_price }} €</p>
     <p><strong>Date de fin :</strong> {{ $auction->end_at }}</p>
 
-    <a href="{{ route('auctions.index') }}">Retour à la liste des ventes</a>
+    <a href="{{ route('auctions.index') }}">
+        <button type="button">🔙 Retour à la liste des ventes</button>
+    </a>
 </body>
 </html>
