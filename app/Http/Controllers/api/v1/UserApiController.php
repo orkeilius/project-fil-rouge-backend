@@ -4,9 +4,14 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Requests\User\UserDestroyRequest;
 use App\Http\Requests\User\UserStoreRequest;
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use Mailtrap\MailtrapClient;
+use Mailtrap\Mime\MailtrapEmail;
+use Symfony\Component\Mime\Address;
 
 class UserApiController extends Controller
 {
@@ -53,6 +58,8 @@ class UserApiController extends Controller
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
+
+        Mail::mailer('mailtrap')->to($user->email)->send(new WelcomeMail($user->name));
 
         return response()->json($user);
     }
