@@ -10,7 +10,7 @@
     <title>Modifier une vente</title>
 </head>
 <body>
-    <h1>Modifier la vente : {{ $auction->name }}</h1>
+    <h1>✏️ Modifier la vente : {{ $auction->name }} ✏️</h1>
 
     <!-- Afficher les erreurs de validation -->
     @if ($errors->any())
@@ -39,5 +39,8 @@
 
         <button type="submit">Mettre à jour</button>
     </form>
+    <a href="{{ url('/auctions') }}">
+        <button type="button">Retour</button>
+    </a>
 </body>
 </html>

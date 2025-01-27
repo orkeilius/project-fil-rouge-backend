@@ -9,7 +9,7 @@
     <title>Nouvelle enchère créée</title>
 </head>
 <body>
-    <h1>Une nouvelle enchère a été créé !</h1>
+    <h1>🎉 Une nouvelle enchère a été créé ! 🎉</h1>
     <p>Nom : {{$auction->name}}</p>
 </body>
 </html>

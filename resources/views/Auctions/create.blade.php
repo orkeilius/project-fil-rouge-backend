@@ -10,7 +10,7 @@
     <title>Créer une Vente aux Enchères</title>
 </head>
 <body>
-    <h1>Créer une nouvelle vente aux enchères</h1>
+    <h1>📦 Créer une nouvelle vente aux enchères 📦</h1>
     <form action="{{ route('auctions.store') }}" method="POST">
         @csrf
         <div class="form-group">

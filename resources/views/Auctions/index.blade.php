@@ -10,7 +10,7 @@
     <title>Liste des Ventes aux Enchères</title>
 </head>
 <body>
-    <h1>Liste des Ventes aux Enchères</h1>
+    <h1>📋 Liste des Ventes aux Enchères 📋</h1>
     
     <a href="{{ route('auctions.create') }}">Créer une nouvelle vente</a>
     

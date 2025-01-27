@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Détails de la Vente aux Enchères</title>
+    <title>📦 Détails de la Vente aux Enchères 📦</title>
 </head>
 <body>
     <h1>Détails de la vente : {{ $auction->name }}</h1>
