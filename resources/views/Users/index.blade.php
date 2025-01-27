@@ -11,7 +11,12 @@
 </head>
 <body>
     <h1>📋 Liste des utilisateurs 📋</h1>
-    <a href="{{ route('users.create') }}">Ajouter un nouvel utilisateur</a>
+    <a href="{{ route('users.create') }}">
+        <button type="button">➕ Ajouter un nouvel utilisateur</button>
+    </a>
+
+    <br><br>
+
     <ul>
         @foreach ($users as $user)
             <li>
