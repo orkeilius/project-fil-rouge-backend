@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2024 Laravel Lang Team
+ * @copyright 2025 Laravel Lang Team
  * @license MIT
  *
  * @see https://laravel-lang.com
@@ -29,7 +29,8 @@ class Translation implements Arrayable
 
     public function __construct(
         readonly protected Arr $arr = new Arr()
-    ) {}
+    ) {
+    }
 
     public function getSource(string $filename): array
     {
