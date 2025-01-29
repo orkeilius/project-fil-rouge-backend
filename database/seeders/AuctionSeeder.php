@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AuctionSeeder extends Seeder
@@ -16,7 +15,7 @@ class AuctionSeeder extends Seeder
             'name' => Str::random(10),
             'description' => Str::random(100),
             'starting_price' => Float::random(10,10000),
-            'end_at' => now()->addDays(Int::random(1, 30)),
+            'end_at' => now()->addDays(Float::random(1, 30)),
         ]);
     }
 }

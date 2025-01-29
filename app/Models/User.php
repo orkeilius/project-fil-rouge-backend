@@ -35,6 +35,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_at',
+        'email'
     ];
 
     /**
@@ -63,5 +66,19 @@ class User extends Authenticatable
     {
         $hash = hash( 'sha256', strtolower( trim( $this->email ) ) );
         return sprintf( 'https://www.gravatar.com/avatar/%s?d=identicon', $hash );
+    }
+
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+    public function isAuctionAuthor(Auction $auction): bool
+    {
+        return $this->id === $auction->author_id;
+    }
+    public function isOfferAuthor(Offer $offer): bool
+    {
+        return $this->id === $offer->author_id;
     }
 }

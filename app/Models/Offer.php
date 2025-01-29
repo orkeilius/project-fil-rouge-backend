@@ -12,7 +12,9 @@ class Offer extends Model
 
     protected $fillable = [
         'price',
-        'created_at'
+        'created_at',
+        'author_id',
+        'auction_id'
     ];
 
     protected function casts(): array
@@ -22,11 +24,11 @@ class Offer extends Model
             'price' => 'float',
         ];
     }
-    public function Auction(): HasMany
+    public function Auction()
     {
         return $this->belongsTo(Auction::class);
     }
-    public function Author(): HasMany
+    public function Author()
     {
         return $this->belongsTo(User::class);
     }
