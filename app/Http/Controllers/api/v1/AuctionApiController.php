@@ -7,6 +7,8 @@ use App\Http\Requests\Auction\AuctionDestroyRequest;
 use App\Http\Requests\Auction\AuctionStoreRequest;
 use App\Http\Requests\Auction\AuctionUpdateRequest;
 use App\Models\Auction;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
 class AuctionApiController extends Controller
 {
@@ -15,7 +17,7 @@ class AuctionApiController extends Controller
      */
     public function index()
     {
-        $auctions = Auction::with('author')->paginate(20);
+        $auctions = Auction::with('author')->with('images')->paginate(20);
         return response()->json($auctions);
     }
 
@@ -32,8 +34,23 @@ class AuctionApiController extends Controller
             'end_at' => $validated['end_at'] ?? now()->addDays(7),
             'author_id' => auth()->id(),
         ]);
+        if ($request->hasFile('images')) {
+            var_dump(var_export($request->allFiles("images")));
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
 
-        return response()->json($auction);
+                $model = Image::create([
+                    'auction_id' => $auction->id,
+                    'path' => $path,
+                    'url' => url(Storage::url($path)),
+                ]);
+                $model->save();
+            }
+        }
+
+
+
+            return response()->json($auction->load('images'));
 
     }
 
@@ -44,6 +61,7 @@ class AuctionApiController extends Controller
     {
         $auction = Auction::findOrFail($id);
         $auction->load('author');
+        $auction->load('images');
         return response()->json($auction);
     }
 
@@ -57,7 +75,27 @@ class AuctionApiController extends Controller
         $auction = Auction::findOrFail($id);
         $auction->update($validated);
         $auction->save();
-        return response()->json($auction);
+
+        if ($request->hasFile('images')) {
+            // Delete existing images
+            foreach ($auction->images as $image) {
+                Storage::disk('public')->delete($image->path);
+                $image->delete();
+            }
+
+            // Store new images
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('images', 'public');
+                Image::create([
+                    'auction_id' => $auction->id,
+                    'path' => $path,
+                    'url' => url(Storage::url($path)),
+                ])->save();
+            }
+        }
+
+
+        return response()->json($auction->load('images'));
     }
 
     /**

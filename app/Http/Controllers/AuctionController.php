@@ -12,14 +12,14 @@ class AuctionController extends Controller
     {
         $perPage = $request->input('per_page', 10);
         $auctions = Auction::paginate($perPage);
-        
+
         return view('auctions.index', compact('auctions'));
     }
 
     // Afficher une vente spécifique
     public function show($id)
     {
-        $auction = Auction::findOrFail($id); 
+        $auction = Auction::findOrFail($id);
         return view('auctions.show', compact('auction'));
     }
 
@@ -47,22 +47,22 @@ class AuctionController extends Controller
             'starting_price' => 'required|numeric|min:0',
             'end_at' => 'required|date|after:today',
         ]);
-    
+
         // Récupérer l'enchère et la mettre à jour
         $auction = Auction::findOrFail($id);
         $auction->update($validated);
-    
+
         // Rediriger avec un message de succès
         return redirect()->route('auctions.index')->with('success', 'Vente mise à jour avec succès.');
     }
-    
+
     // Sauvegarder une vente
     public function store(Request $request)
     {
         // Validation des données du formulaire
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255', 
+            'description' => 'required|string|max:255',
             'starting_price' => 'required|numeric|min:0',
             'end_at' => 'required|date|after:today',
         ]);
