@@ -318,6 +318,12 @@
 									"key": "rzer",
 									"value": "",
 									"type": "text"
+								},
+								{
+									"key": "images[]",
+									"type": "file",
+									"src": [
+									]
 								}
 							]
 						},
@@ -354,7 +360,7 @@
 				{
 					"name": "update auction",
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}api/auctions/182?name=eeeee",
@@ -594,7 +600,7 @@
 				{
 					"name": "update offer",
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}api/offers/901?price=20000",
@@ -644,8 +650,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"exec": [],
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -667,7 +676,7 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "bob.test@localhost.com",
+									"value": "orkeilius@gmail.com",
 									"type": "text"
 								},
 								{
