@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         UserFactory::new()->run();
+        Image::factory()
+            ->count(1000)
+            ->create();
         //AuctionFactory::new()->run();
     }
 }

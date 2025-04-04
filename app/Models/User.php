@@ -62,6 +62,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Offer::class, 'author_id');
     }
+    public function Images()
+    {
+        return $this->hasMany(Image::class, 'author_id');
+    }
     public function getAvatarUrlAttribute()
     {
         $hash = hash( 'sha256', strtolower( trim( $this->email ) ) );

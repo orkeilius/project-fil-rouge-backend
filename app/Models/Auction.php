@@ -36,6 +36,10 @@ class Auction extends Model
     {
         return $this->hasMany(Offer::class, 'auction_id');
     }
+    public function Images()
+    {
+        return $this->hasMany(Image::class, 'auction_id');
+    }
 
     public function getHighestOfferAttribute():float
     {
