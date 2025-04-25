@@ -28,6 +28,12 @@ class UserApiController extends Controller
         $user = User::findOrFail($id); // Trouve l'utilisateur par son ID
         return response()->json($user); // Retourne l'utilisateur en JSON
     }
+
+    public function showSelf()
+    {
+        $user = User::findOrFail(auth()->id());
+        return response()->json($user); // Retourne l'utilisateur en JSON
+    }
     public function getAuctions($id)
     {
         $user = User::findOrFail($id);
@@ -38,7 +44,7 @@ class UserApiController extends Controller
     public function getOffers($id)
     {
         $user = User::findOrFail($id);
-        $offers = $user->Offers()->with('author')->paginate(20);;
+        $offers = $user->Offers()->with('author')->paginate(20);
         return response()->json($offers);
     }
 

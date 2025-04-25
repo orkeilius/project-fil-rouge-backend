@@ -12,7 +12,10 @@ Route::get('/user', function (Request $request) {
 
 //User
 Route::Get('users', [UserApiController::class, 'index']);
+Route::Get('users/self', [UserApiController::class, 'showSelf'])
+    ->middleware('auth:api');
 Route::Get('users/{id}', [UserApiController::class, 'show']);
+
 Route::Post('users', [UserApiController::class, 'store']);
 Route::Put('users/{id}', [UserApiController::class, 'update'])
     ->middleware('auth:api');
@@ -39,6 +42,3 @@ Route::Post('offers', [OfferApiController::class, 'store'])
     ->middleware('auth:api');
 Route::Put('offers/{id}', [OfferApiController::class, 'update'])
     ->middleware('auth:api');
-//Route::Delete('auctions/{id}', [AuctionApiController::class, 'destroy'])
-//    ->middleware('auth:api');
-
