@@ -18,7 +18,7 @@ class AuctionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->name(),
+            'name' => fake()->word(),
             'description' => fake()->text(),
             'starting_price' => fake()->randomFloat(2, 0, 10000),
             'end_at' => fake()->dateTimeBetween('now', '+1 month'),
