@@ -34,6 +34,7 @@ class UserApiController extends Controller
     public function showSelf()
     {
         $user = User::findOrFail(auth()->id());
+        $user->makeVisible('email');
         // Calculer les statistiques
         $stats = [
             'auctions_ongoing' => $user->Auctions()->where('end_at', '>', now())->count(),
