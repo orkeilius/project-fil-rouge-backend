@@ -88,7 +88,7 @@ class UserApiController extends Controller
             'password' => bcrypt($validated['password']),
         ]);
 
-        Mail::mailer('mailtrap')->to($user->email)->send(new WelcomeMail($user->name));
+        //Mail::mailer('mailtrap')->to($user->email)->send(new WelcomeMail($user->name));
 
         return response()->json($user);
     }
