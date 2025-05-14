@@ -62,6 +62,7 @@ class AuctionApiController extends Controller
         $auction = Auction::findOrFail($id);
         $auction->load('author');
         $auction->load('images');
+        $auction->load('offers');
         return response()->json($auction);
     }
 
