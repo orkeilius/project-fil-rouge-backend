@@ -21,7 +21,8 @@ class AuctionFactory extends Factory
             'name' => fake()->word(),
             'description' => fake()->text(),
             'starting_price' => fake()->randomFloat(2, 0, 10000),
-            'end_at' => fake()->dateTimeBetween('now', '+1 month'),
+            'end_at' => fake()->dateTimeBetween('now', '+1 months'),
+            'author_id' => fake()->numberBetween(1, 100),
         ];
     }
 

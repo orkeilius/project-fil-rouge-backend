@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Auction;
+use Database\Factories\AuctionFactory;
 use Database\Factories\ImageFactory;
 use Database\Factories\UserFactory;
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Database\Seeder;
 
 class AuctionSeeder extends Seeder
@@ -13,11 +16,8 @@ class AuctionSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('auctions')->insert([
-            'name' => Str::random(10),
-            'description' => Str::random(100),
-            'starting_price' => Float::random(10,10000),
-            'end_at' => now()->addDays(Float::random(1, 30)),
-        ]);
+        Auction::Factory()
+            ->count(1000)
+            ->create();
     }
 }

@@ -20,7 +20,11 @@ class AuctionApiController extends Controller
     {
         $validated = $request->validated();
         $filter = $validated['filter'] ?? '';
-        $auctions = Auction::query()->with('author')->with('images')->whereDate('end_at', '>=', now());
+        $auctions = Auction::query()
+            ->whereDate('end_at', '>=', now())
+            ->with('author')
+            ->with('images')
+            ->withCount('offers');
 
         if ($filter == 'endsoon') {
             $auctions = $auctions->orderBy('end_at', 'asc');
