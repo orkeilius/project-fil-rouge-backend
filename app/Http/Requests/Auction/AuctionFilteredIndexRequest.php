@@ -9,7 +9,7 @@ class AuctionFilteredIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filter' => ['string','in:ongoing,ended,won'],
+            'filter' => ['string','in:endsoon,new,highest']
         ];
     }
 }

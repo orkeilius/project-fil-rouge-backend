@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Requests\Auction\AuctionFilteredIndexRequest;
+use App\Http\Requests\User\UserAuctionFilteredIndexRequest;
 use App\Http\Requests\User\UserDestroyRequest;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Mail\WelcomeMail;
 use App\Models\Auction;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
-use Mailtrap\MailtrapClient;
-use Mailtrap\Mime\MailtrapEmail;
-use Symfony\Component\Mime\Address;
 
 class UserApiController extends Controller
 {
@@ -50,7 +46,7 @@ class UserApiController extends Controller
         $userData['stats'] = $stats;
         return response()->json($userData); // Retourne l'utilisateur en JSON
     }
-    public function getAuctions($id,AuctionFilteredIndexRequest $request)
+    public function getAuctions($id, UserAuctionFilteredIndexRequest $request)
     {
         $filter = $request->input('filter');
         $user = User::findOrFail($id);

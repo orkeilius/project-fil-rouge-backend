@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auction\AuctionDestroyRequest;
+use App\Http\Requests\Auction\AuctionFilteredIndexRequest;
 use App\Http\Requests\Auction\AuctionStoreRequest;
 use App\Http\Requests\Auction\AuctionUpdateRequest;
 use App\Models\Auction;
@@ -15,10 +16,20 @@ class AuctionApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AuctionFilteredIndexRequest $request)
     {
-        $auctions = Auction::with('author')->with('images')->paginate(20);
-        return response()->json($auctions);
+        $validated = $request->validated();
+        $filter = $validated['filter'] ?? '';
+        $auctions = Auction::query()->with('author')->with('images')->whereDate('end_at', '>=', now());
+
+        if ($filter == 'endsoon') {
+            $auctions = $auctions->orderBy('end_at', 'asc');
+        } elseif ($filter == 'new') {
+            $auctions = $auctions->orderBy('created_at', 'desc');
+        } elseif ($filter == 'highest') {
+            $auctions = $auctions->orderBy('highest_offer', 'desc');
+        }
+        return response()->json($auctions->paginate(20));
     }
 
     /**
