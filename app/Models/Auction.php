@@ -41,10 +41,10 @@ class Auction extends Model
         return $this->hasMany(Image::class, 'auction_id');
     }
 
-    public function getHighestOfferAttribute():float
+    public function getHighestOfferAttribute(): float
     {
         $max = $this->Offers()->max('price');
-        return isNull($max) ? 0 : $max;
+        return $max === null ? 0.00 : $max;
     }
     public function isEnded():bool
     {
