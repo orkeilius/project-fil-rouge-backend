@@ -31,7 +31,13 @@ class AuctionApiController extends Controller
         } elseif ($filter == 'new') {
             $auctions = $auctions->orderBy('created_at', 'desc');
         } elseif ($filter == 'highest') {
-            $auctions = $auctions->orderBy('highest_offer', 'desc');
+            // Utilisation d'une sous-requête pour trier par l'offre la plus élevée
+            $auctions = $auctions->leftJoin('offers', function ($join) {
+                $join->on('auctions.id', '=', 'offers.auction_id');
+            })
+                ->select('auctions.*', \DB::raw('MAX(offers.price) as highest_offer'))
+                ->groupBy('auctions.id')
+                ->orderByRaw('COALESCE(highest_offer, 0) DESC');
         }
         return response()->json($auctions->paginate(20));
     }
@@ -64,8 +70,7 @@ class AuctionApiController extends Controller
         }
 
 
-
-            return response()->json($auction->load('images'));
+        return response()->json($auction->load('images'));
 
     }
 
