@@ -61,7 +61,7 @@ class UserApiController extends Controller
                     ->whereRaw('offers.id = (SELECT MAX(o.id) FROM offers o WHERE o.auction_id = auctions.id)');
             })->where('end_at', '<', now());
         }
-        return response()->json($auctions->paginate(20));
+        return response()->json($auctions->with('images') ->paginate(20));
     }
 
     public function getOffers($id)

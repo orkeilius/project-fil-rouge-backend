@@ -21,7 +21,7 @@ class AuctionApiController extends Controller
         $validated = $request->validated();
         $filter = $validated['filter'] ?? '';
         $auctions = Auction::query()
-            ->whereDate('end_at', '>=', now())
+            ->whereDate('end_at', '>', now())
             ->with('author')
             ->with('images')
             ->withCount('offers');
