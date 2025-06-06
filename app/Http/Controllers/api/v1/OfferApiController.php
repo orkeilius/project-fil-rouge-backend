@@ -35,6 +35,10 @@ class OfferApiController extends Controller
      */
     public function store(StoreOfferRequest $request)
     {
+        Offer::where('author_id', Auth::id())
+            ->where('auction_id', $request->input('auction_id'))
+            ->delete();
+
         $validated = $request->validated();
         $offer = Offer::create([
             'price' => $validated['price'],

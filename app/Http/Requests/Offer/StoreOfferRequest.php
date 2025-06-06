@@ -22,11 +22,6 @@ class StoreOfferRequest extends FormRequest
         if($isAuthor){
             return Response::deny('Auction Author cannot make an offer');
         }
-
-        $hasOffer = $auction->offers->where('author_id', $user->id)->count() > 0;
-        if($hasOffer){
-            return Response::deny('User already made an offer');
-        }
         if($auction->highest_offer >= $this->request->get('price')){
             $priceText = json_encode($auction->highest_offer, JSON_PRESERVE_ZERO_FRACTION);
             return Response::deny('Offer price must be higher than current highest offer :' . $priceText);
