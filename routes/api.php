@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuctionApiController;
+use App\Http\Controllers\api\v1\MessageApiController;
 use App\Http\Controllers\api\v1\OfferApiController;
 use App\Http\Controllers\api\v1\UserApiController;
 use Illuminate\Http\Request;
@@ -42,3 +43,18 @@ Route::Post('offers', [OfferApiController::class, 'store'])
     ->middleware('auth:api');
 Route::Put('offers/{id}', [OfferApiController::class, 'update'])
     ->middleware('auth:api');
+
+//Messages
+Route::Get('messages', [MessageApiController::class, 'index'])
+    ->middleware('auth:api');
+Route::Get('messages/unread-count', [MessageApiController::class, 'unreadCount'])
+    ->middleware('auth:api');
+Route::Get('messages/conversation/{userId}', [MessageApiController::class, 'conversation'])
+    ->middleware('auth:api');
+Route::Post('messages', [MessageApiController::class, 'store'])
+    ->middleware('auth:api');
+Route::Put('messages/mark-read/{userId}', [MessageApiController::class, 'markAsRead'])
+    ->middleware('auth:api');
+Route::Delete('messages/{id}', [MessageApiController::class, 'destroy'])
+    ->middleware('auth:api');
+
