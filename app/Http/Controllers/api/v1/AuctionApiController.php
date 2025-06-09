@@ -26,6 +26,14 @@ class AuctionApiController extends Controller
             ->with('images')
             ->withCount('offers');
 
+        $search = $validated['search'] ?? null;
+        if ($search) {
+            $auctions = $auctions->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                      ->orWhere('description', 'like', "%$search%") ;
+            });
+        }
+
         if ($filter == 'endsoon') {
             $auctions = $auctions->orderBy('end_at', 'asc');
         } elseif ($filter == 'new') {
